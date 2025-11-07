@@ -5,8 +5,8 @@ const parentSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
   password: { type: String, required: true },
-  studentRegNo: { type: String, required: true }, // link to student
-  role: { type: String, default: "parent" },
+  studentRegNo: { type: String, required: true },
 });
 
-export default mongoose.model("Parent", parentSchema);
+const Parent = mongoose.model("Parent", parentSchema);
+export default Parent;

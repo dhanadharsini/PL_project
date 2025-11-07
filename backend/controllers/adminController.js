@@ -27,8 +27,45 @@ export const adminLogin = async (req, res) => {
 // Add Student
 export const addStudent = async (req, res) => {
   try {
-    const { name, rollNo, department, year } = req.body;
-    const newStudent = new Student({ name, rollNo, department, year });
+    const {
+      name,
+      registerNumber,
+      department,
+      year,
+      hostel,
+      roomNumber,
+      email,
+      password,
+      parentName,
+    } = req.body;
+
+    // Validation check
+    if (
+      !name ||
+      !registerNumber ||
+      !department ||
+      !year ||
+      !hostel ||
+      !roomNumber ||
+      !email ||
+      !password ||
+      !parentName
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newStudent = new Student({
+      name,
+      registerNumber,
+      department,
+      year,
+      hostel,
+      roomNumber,
+      email,
+      password,
+      parentName,
+    });
+
     await newStudent.save();
     res.status(201).json({ message: "Student added successfully" });
   } catch (error) {
@@ -40,8 +77,21 @@ export const addStudent = async (req, res) => {
 // Add Parent
 export const addParent = async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
-    const newParent = new Parent({ name, email, phone });
+    const { name, email, phone, password, studentRegNo } = req.body;
+
+    // Validation
+    if (!name || !email || !phone || !password || !studentRegNo) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newParent = new Parent({
+      name,
+      email,
+      phone,
+      password,
+      studentRegNo,
+    });
+
     await newParent.save();
     res.status(201).json({ message: "Parent added successfully" });
   } catch (error) {
@@ -50,13 +100,28 @@ export const addParent = async (req, res) => {
   }
 };
 
+
 // Add Warden
 export const addWarden = async (req, res) => {
   try {
-    const { name, email, hostel } = req.body;
-    const newWarden = new Warden({ name, email, hostel });
+    const { name, email, phone, password, wardenId, hostel } = req.body;
+
+    if (!name || !email || !phone || !password || !wardenId || !hostel) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newWarden = new Warden({
+      name,
+      email,
+      phone,
+      password,
+      wardenId,
+      hostel,
+    });
+
     await newWarden.save();
     res.status(201).json({ message: "Warden added successfully" });
+
   } catch (error) {
     console.error("Error adding warden:", error);
     res.status(500).json({ message: "Error adding warden" });

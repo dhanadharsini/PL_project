@@ -16,22 +16,30 @@ function AddParent() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/api/admin/add-parent", formData);
-      alert("Parent added successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-        studentRegNo: "",
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Error adding parent");
-    }
-  };
+  e.preventDefault();
+  try {
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      phoneNumber: formData.phone, // ✅ match backend key
+      password: formData.password,
+      studentRegisterNumber: formData.studentRegNo, // ✅ match backend key
+    };
+
+    await axios.post("http://localhost:5000/api/admin/add-parent", data);
+    alert("Parent added successfully!");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      studentRegNo: "",
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Error adding parent");
+  }
+};
 
   return (
     <div className="form-container">

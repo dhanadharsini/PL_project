@@ -21,8 +21,23 @@ function AddStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      await axios.post("http://localhost:5000/api/admin/add-student", formData);
+      // ✅ match the backend’s expected field names
+      const data = {
+        name: formData.name,
+        registerNumber: formData.regNo, // changed
+        department: formData.department,
+        year: formData.year,
+        hostel: formData.hostelName, // changed
+        roomNumber: formData.roomNo, // changed
+        email: formData.email,
+        password: formData.password,
+        parentName: formData.parentName,
+      };
+
+      await axios.post("http://localhost:5000/api/admin/add-student", data);
+
       alert("Student added successfully!");
       setFormData({
         name: "",
@@ -45,15 +60,78 @@ function AddStudent() {
     <div className="form-container">
       <h2>Add Student</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Student Name" value={formData.name} onChange={handleChange} required />
-        <input type="text" name="regNo" placeholder="Register Number" value={formData.regNo} onChange={handleChange} required />
-        <input type="text" name="department" placeholder="Department" value={formData.department} onChange={handleChange} required />
-        <input type="text" name="year" placeholder="Year" value={formData.year} onChange={handleChange} required />
-        <input type="text" name="hostelName" placeholder="Hostel Name" value={formData.hostelName} onChange={handleChange} required />
-        <input type="text" name="roomNo" placeholder="Room Number" value={formData.roomNo} onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-        <input type="text" name="parentName" placeholder="Parent's Name" value={formData.parentName} onChange={handleChange} required />
+        <input
+          type="text"
+          name="name"
+          placeholder="Student Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="regNo"
+          placeholder="Register Number"
+          value={formData.regNo}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="department"
+          placeholder="Department"
+          value={formData.department}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="year"
+          placeholder="Year"
+          value={formData.year}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="hostelName"
+          placeholder="Hostel Name"
+          value={formData.hostelName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="roomNo"
+          placeholder="Room Number"
+          value={formData.roomNo}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="parentName"
+          placeholder="Parent's Name"
+          value={formData.parentName}
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Add Student</button>
       </form>
     </div>

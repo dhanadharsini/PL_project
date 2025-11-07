@@ -6,8 +6,8 @@ const wardenSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   password: { type: String, required: true },
   wardenId: { type: String, required: true, unique: true },
-  hostelName: { type: String, required: true },
-  role: { type: String, default: "warden" }, // for role-based access
+  hostel: { type: String, required: true }
 });
 
-export default mongoose.model("Warden", wardenSchema);
+const Warden = mongoose.model("Warden", wardenSchema);
+export default Warden;
